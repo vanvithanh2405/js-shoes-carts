@@ -9,7 +9,7 @@ function fetchApi(data) {
             fetch(data)
                 .then(res => res.json())
                 .then(data => resolve(data))
-        }, 1000)
+        }, 500)
     })
 }
 
