@@ -1,0 +1,101 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    line-height: 1.5;
+    box-sizing: border-box;
+}
+
+.mainContent {
+    height: calc(-20px + 100vh);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    flex-wrap: wrap;
+    max-width: 760px;
+    padding: 0px 20px;
+    margin: 0px auto;
+}
+
+.mainContent::before {
+    content: "";
+    display: block;
+    position: fixed;
+    width: 300%;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%) skewY(-8deg);
+    background-color: rgb(246, 201, 14);
+    z-index: -1;
+    border-radius: 100%;
+    animation: 8s ease-in-out 0s infinite alternate none running App_wave_3CtRm;
+}
+
+.card {
+    background-color: rgb(255, 255, 255);
+    box-sizing: border-box;
+    width: 360px;
+    height: 600px;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 3.2px 2.2px, rgba(0, 0, 0, 0.027) 0px 7px 5.4px, rgba(0, 0, 0, 0.035) 0px 12.1px 10.1px, rgba(0, 0, 0, 0.043) 0px 19.8px 18.1px, rgba(0, 0, 0, 0.05) 0px 34.7px 33.8px, rgba(0, 0, 0, 0.07) 0px 81px 81px;
+    position: relative;
+    margin-bottom: 20px;
+    border-radius: 30px;
+    overflow: hidden;
+    padding: 0px 28px;
+}
+
+.card::before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background-color: rgb(246, 201, 14);
+    top: -20%;
+    left: -50%;
+    z-index: 0;
+    border-radius: 100%;
+}
+
+.cardTop {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 12px 0px;
+}
+
+.cardTop img {
+    display: block;
+    width: 50px;
+}
+
+.cardTitle {
+    font-size: 24px;
+    font-weight: 700;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 16px 0px;
+}
+
+.cardBody {
+    height: calc(100% - 135px);
+    position: relative;
+    overflow-y: auto;
+}
+
+
+@keyframes App_wave_3CtRm {
+    0% {
+        transform: translate(-50%) skewY(-8deg);
+    }
+
+    100% {
+        transform: translate(-50%) skewY(8deg);
+    }
+}
