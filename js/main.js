@@ -48,6 +48,8 @@ const createCard = (data) => {
 
     const shopItemButton = document.createElement('div');
     shopItemButton.setAttribute('class', 'shopItem_button');
+    shopItemButton.setAttribute('data-id', data.id);
+
     shopItemButton.style.opacity = 1;
     shopItemButton.style.cursor = 'pointer';
     shopItemButton.addEventListener('click', (e) => handleClickAddToCart(e, data.id)); 
@@ -98,6 +100,31 @@ const handleClickAddToCart = (e, id) => {
 };
 
 
+const handleUpdateQuantity = (id, quantity) => {
+    const item = cartItems.find(item => item.id === id);
+    if (item) {
+        item.quantity += quantity;
+        if (item.quantity < 1) {
+            cartItems = cartItems.filter(item => item.id !== id);
+        }
+    }
+    renderCart();
+}
+
+const removeFromCart = (id) => {  
+    cartItems = cartItems.filter(item => item.id !== id);
+    
+    const button = document.querySelector(`.shopItem_button[data-id="${id}"]`);
+    if (button) {
+        button.style.opacity = 1;
+        button.style.cursor = 'pointer';
+        button.innerHTML = '<p>Add to cart</p>';
+    }
+
+    renderCart();
+};
+
+
 // Cart item
 const renderCart = () => {
     const cartContainer = document.querySelector('#cardBody-item-right');
@@ -110,11 +137,9 @@ const renderCart = () => {
         totalAmount += item.price * item.quantity;
         totalItems += item.quantity;
 
-        // Cart Item Container
         const cartItem = document.createElement('div');
         cartItem.setAttribute('class', 'cardItem');
 
-        // Left Section (Image)
         const cartItemLeft = document.createElement('div');
         cartItemLeft.setAttribute('class', 'cardItem_left');
 
@@ -140,7 +165,6 @@ const renderCart = () => {
         cartItemPrice.setAttribute('class', 'cardItem_price');
         cartItemPrice.innerHTML = `<span>$</span><span>${item.price.toFixed(2)}</span>`;
 
-        // Actions (Quantity and Remove)
         const cartItemActions = document.createElement('div');
         cartItemActions.setAttribute('class', 'cartItem_actions');
 
@@ -150,7 +174,7 @@ const renderCart = () => {
         const minusBtn = document.createElement('div');
         minusBtn.setAttribute('class', 'cartItem_button');
         minusBtn.innerText = '-';
-        // minusBtn.addEventListener('click', () => updateCartItemQuantity(item.id, -1));
+        minusBtn.addEventListener('click', () => handleUpdateQuantity(item.id, -1));
 
         const quantityDisplay = document.createElement('div');
         quantityDisplay.setAttribute('class', 'cartItem_number');
@@ -159,7 +183,7 @@ const renderCart = () => {
         const plusBtn = document.createElement('div');
         plusBtn.setAttribute('class', 'cartItem_button');
         plusBtn.innerText = '+';
-        // plusBtn.addEventListener('click', () => updateCartItemQuantity(item.id, 1));
+        plusBtn.addEventListener('click', () => handleUpdateQuantity(item.id, 1));
 
         cartItemCount.appendChild(minusBtn);
         cartItemCount.appendChild(quantityDisplay);
@@ -173,7 +197,7 @@ const renderCart = () => {
         const removeImg = document.createElement('img');
         removeImg.src = deleteIcon;
         removeImg.alt = 'Remove Item';
-        // removeImg.addEventListener('click', () => removeFromCart(item.id));
+        removeImg.addEventListener('click', () => removeFromCart(item.id));
 
         cartItemRemove.appendChild(removeImg);
 
